@@ -65,7 +65,7 @@ def main():
     while True:
         ret, raw = cap.read()
         if not ret:
-            print("[ERRORE] Frame non disponibile.")
+            print("[ERRORE] Frame non disponibile")
             break
 
         # Flip specchio sempre attivo
