@@ -1,104 +1,402 @@
-# Webcam Filtri in Real Time
-### Python + OpenCV
+# \# Filtri Webcam in Real Time
 
----
+# 
 
-## Requisiti
+# Applicazione desktop sviluppata in Python e OpenCV che applica filtri ed effetti visivi in tempo reale alla webcam.  
 
-```bash
-pip install opencv-python numpy
-```
+# Il progetto include face detection, overlay grafici, screenshot, registrazione video e una HUD interattiva controllata da tastiera.  
 
-> Python 3.8+ consigliato.
+# L’obiettivo è offrire un sistema stabile, modulare e facilmente eseguibile anche su Raspberry Pi.
 
----
+# 
 
-## Avvio
+# \---
 
-```bash
-# 1. Genera gli asset PNG placeholder (solo la prima volta)
-python genera_assets.py
+# 
 
-# 2. Avvia l'applicazione
-python main.py
-```
+# \# Requisiti
 
-Sostituire i file in `assets/` con PNG reali a 4 canali (BGRA) per un risultato migliore negli overlay.
+# 
 
----
+# \## Software
 
-## Comandi tastiera
+# \- Python 3.10 o superiore
 
-| Tasto | Azione |
-|-------|--------|
-| `← →` | Filtro precedente / successivo |
-| `1`–`9` | Selezione diretta filtro |
-| `B` | Sfondo sfocato (portrait mode) |
-| `G` | Ghost effect (scia) |
-| `M` | Rilevamento movimento |
-| `C` | Overlay cappello |
-| `O` | Overlay occhiali |
-| `X` | Overlay maschera |
-| `L` | Etichetta nome sopra il viso |
-| `F` | Flip specchio (selfie mode) |
-| `A` | Modalità auto (scorrimento filtri) |
-| `S` | Screenshot (salvato in `screenshots/`) |
-| `R` | Avvia/ferma registrazione (in `recordings/`) |
-| `H` | Mostra/nascondi aiuto |
-| `Q` / `ESC` | Esci |
+# \- pip
 
----
+# \- OpenCV
 
-## Filtri disponibili
+# \- NumPy
 
-| N. | Nome | Descrizione |
-|----|------|-------------|
-| 1 | Normale | Frame originale |
-| 2 | Grigio | Scala di grigi |
-| 3 | Negativo | Inversione colori |
-| 4 | Sepia | Tonalità calda seppia |
-| 5 | Heatmap | Visione termica (COLORMAP_JET) |
-| 6 | Cartoon | Bilateral filter + bordi Canny |
-| 7 | Pixelate | Effetto pixel art |
-| 8 | Vignetta | Bordi scuri graduali |
-| 9 | Solarize | Inversione parziale |
-| 0 | MotionBlur | Mosso orizzontale simulato |
+# 
 
----
+# \## Hardware
 
-## Struttura progetto
+# \- Webcam USB o webcam integrata
 
-```
-webcam_filtri/
-├── main.py           # Loop principale, tasti, orchestrazione
-├── filters.py        # Filtri colore (grigio, negativo, cartoon…)
-├── effects.py        # Effetti con face detection e frame-diff
-├── ui.py             # HUD, barra filtri, testo on-screen
-├── genera_assets.py  # Genera PNG placeholder per gli overlay
-├── README.md
-└── assets/
-    ├── cappello.png  # PNG BGRA — sostituibile con versione reale
-    ├── occhiali.png
-    └── maschera.png
-```
+# \- Tastiera
 
----
+# 
 
-## HUD in tempo reale
+# \## Sistemi Operativi supportati
 
-Nell'angolo in alto a sinistra sono sempre visibili:
-- **FILTRO** — nome del filtro attivo (+ effetti sovrapposti)
-- **FACCE** — numero di volti rilevati via Haar Cascade
-- **FPS** — frame rate calcolato in real time
+# \- Windows
 
-Un **indicatore rosso ● REC** appare in alto a destra durante la registrazione.
-Un **indicatore verde ⟳ AUTO** appare quando è attiva la modalità automatica.
+# \- Linux
 
----
+# \- Raspberry Pi OS
 
-## Note
+# 
 
-- Gli screenshot vengono salvati in `screenshots/screenshot_YYYYMMDD_HHMMSS.jpg`
-- Le registrazioni in `recordings/rec_YYYYMMDD_HHMMSS.mp4`
-- La modalità automatica scorre i filtri ogni **3 secondi** (modificabile in `main.py`: `AUTO_MODE_INTERVAL`)
-- L'etichetta del viso è configurabile in `main.py`: `FACE_LABEL_TEXT`
+# \---
+
+# 
+
+# \# Struttura del progetto
+
+# 
+
+# ```text
+
+# progetto/
+
+# │
+
+# ├── main.py
+
+# ├── filters.py
+
+# ├── effects.py
+
+# ├── ui.py
+
+# ├── requirements.txt
+
+# ├── README.md
+
+# ├── run.sh
+
+# │
+
+# ├── assets/
+
+# │   ├── cappello.png
+
+# │   ├── occhiali.png
+
+# │   └── six\_seven.png
+
+# │
+
+# ├── screenshots/
+
+# └── recordings/
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \# Installazione
+
+# 
+
+# \---
+
+# 
+
+# 
+
+# \## Installare le dipendenze
+
+# 
+
+# ```bash
+
+# pip install -r requirements.txt
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \# Avvio del progetto
+
+# 
+
+# \## Metodo classico
+
+# 
+
+# ```bash
+
+# python main.py
+
+# ```
+
+# 
+
+# oppure su Linux/Raspberry:
+
+# 
+
+# ```bash
+
+# python3 main.py
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \## Avvio tramite script
+
+# 
+
+# ```bash
+
+# ./run.sh
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \# Filtri disponibili
+
+# 
+
+# \- Normale
+
+# \- Scala di grigi
+
+# \- Negativo
+
+# \- Sepia
+
+# \- Heatmap
+
+# \- Cartoon
+
+# \- Pixelate
+
+# \- Vignettatura
+
+# \- Solarize
+
+# \- Blur sfondo
+
+# \- Cappello overlay
+
+# \- Occhiali overlay
+
+# \- Maschera overlay
+
+# 
+
+# \---
+
+# 
+
+# \# Funzionalità principali
+
+# 
+
+# \## Face Detection
+
+# Il programma utilizza Haar Cascade di OpenCV per rilevare i volti in tempo reale.
+
+# 
+
+# \## Background Blur
+
+# Lo sfondo viene sfocato mantenendo il volto nitido.
+
+# 
+
+# \## Overlay PNG
+
+# Cappelli, occhiali e maschere vengono sovrapposti usando immagini PNG con canale alpha.
+
+# 
+
+# \## HUD Real Time
+
+# Sono visualizzati:
+
+# \- filtro attivo
+
+# \- numero facce rilevate
+
+# \- FPS correnti
+
+# \- stato registrazione
+
+# 
+
+# \## Screenshot
+
+# Premendo il tasto `S` viene salvata un’immagine `.jpg` con timestamp automatico.
+
+# 
+
+# \## Registrazione Video
+
+# Premendo `R` si avvia o interrompe la registrazione video `.mp4`.
+
+# 
+
+# \---
+
+# 
+
+# \# Controlli da tastiera
+
+# 
+
+# | Tasto | Azione |
+
+# |------|---------|
+
+# | A | Filtro precedente |
+
+# | D | Filtro successivo |
+
+# | S | Salva screenshot |
+
+# | R | Avvia/Ferma registrazione |
+
+# | H | Mostra/Nascondi help |
+
+# | Q | Esci dal programma |
+
+# | ESC | Esci dal programma |
+
+# 
+
+# \---
+
+# 
+
+# \# Screenshot e registrazioni
+
+# 
+
+# \## Screenshot
+
+# Le immagini vengono salvate nella cartella:
+
+# 
+
+# ```text
+
+# screenshots/
+
+# ```
+
+# 
+
+# Formato nome file:
+
+# 
+
+# ```text
+
+# screenshot\_YYYYMMDD\_HHMMSS.jpg
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \## Registrazioni video
+
+# I video vengono salvati nella cartella:
+
+# 
+
+# ```text
+
+# recordings/
+
+# ```
+
+# 
+
+# Formato nome file:
+
+# 
+
+# ```text
+
+# rec\_YYYYMMDD\_HHMMSS.mp4
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \# Note per Raspberry Pi
+
+# 
+
+# Il progetto è compatibile con Raspberry Pi dotato di webcam USB.
+
+# 
+
+# Su Raspberry Pi potrebbe essere necessario installare OpenCV tramite:
+
+# 
+
+# ```bash
+
+# sudo apt update
+
+# sudo apt install python3-opencv
+
+# ```
+
+# 
+
+# 
+
+# 
+
+# \---
+
+# 
+
+# \# Dipendenze principali
+
+# 
+
+# \- opencv-python
+
+# \- numpy
+
+# 
+
+# \---
+
+# 
+
+# 
+
